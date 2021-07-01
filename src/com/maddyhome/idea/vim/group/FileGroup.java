@@ -161,6 +161,19 @@ public class FileGroup {
   }
 
   /**
+   * Closes editor.
+   */
+  public void closeFile(int number, @NotNull DataContext context) {
+    final Project project = PlatformDataKeys.PROJECT.getData(context);
+    final FileEditorManagerEx fileEditorManager = FileEditorManagerEx.getInstanceEx(project);
+    final EditorWindow window = fileEditorManager.getCurrentWindow();
+    VirtualFile[] editors = fileEditorManager.getOpenFiles();
+    if (number >= 0 && number < editors.length) {
+      fileEditorManager.closeFile(editors[number], window);
+    }
+  }
+
+  /**
    * Saves specific file in the project.
    */
   public void saveFile(DataContext context) {
